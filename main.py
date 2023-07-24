@@ -1,22 +1,20 @@
+#imports 
 from __future__ import annotations
-
 import asyncio
 import time
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import pandas as pd
 import math
-
 from datetime import timedelta
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
+# Step 0: Init API
 app = FastAPI()
 
-# Step 0: Setup Helper functions
-
-
+# Step 1: Setup Helper functions
 def get_system_uptime() -> str:
     """Function to get uptime"""
     with open('/proc/uptime', 'r', encoding='utf-8') as f:
@@ -24,7 +22,7 @@ def get_system_uptime() -> str:
         uptime_string: str = str(timedelta(seconds=uptime_seconds))
     return uptime_string
 
-
+# Step 2: Load Model
 async def load_model_data():
     """Asynchronously load and preprocess data"""
     model_start_time = time.time()
@@ -44,7 +42,7 @@ async def load_model_data():
 
 model_task = asyncio.create_task(load_model_data())
 
-
+# Step 3: Configure Routes
 @app.get('/')
 async def index(request: Request):
     """introduction, usage_time, uptime"""
