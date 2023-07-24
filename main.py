@@ -45,7 +45,7 @@ model_task = asyncio.create_task(load_model_data())
 # Step 3: Configure Routes
 @app.get('/')
 async def index(request: Request):
-    """ GET / ""
+    """ GET / """
     introduction: str = "Welcome to the Our API! This API provides information about phishing links. Go to `/checkurl`"
     usage_time: str = time.strftime("%Y-%m-%d %H:%M:%S")
     uptime: str = get_system_uptime()
@@ -54,7 +54,6 @@ async def index(request: Request):
         "usage_time": usage_time,
         "uptime": uptime
     }
-
 
 @app.get('/checkurl', response_class=JSONResponse)
 async def check_url(request: Request, url: str = ""):
