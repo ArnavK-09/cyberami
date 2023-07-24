@@ -45,7 +45,7 @@ model_task = asyncio.create_task(load_model_data())
 # Step 3: Configure Routes
 @app.get('/')
 async def index(request: Request):
-    """introduction, usage_time, uptime"""
+    """ GET / ""
     introduction: str = "Welcome to the Our API! This API provides information about phishing links. Go to `/checkurl`"
     usage_time: str = time.strftime("%Y-%m-%d %H:%M:%S")
     uptime: str = get_system_uptime()
@@ -58,7 +58,7 @@ async def index(request: Request):
 
 @app.get('/checkurl', response_class=JSONResponse)
 async def check_url(request: Request, url: str = ""):
-    """checkurl?url=...{ url, type }"""
+    """ GET /checkurl?url=... """
     # Wait for the model to be loaded if not loaded yet
     model = await model_task
     prediction = model.predict([url])[0]
