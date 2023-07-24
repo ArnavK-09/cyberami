@@ -1,6 +1,7 @@
 # imports
 import time
 from datetime import timedelta
+from math import floor
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -19,6 +20,7 @@ def get_system_uptime():
 
 
 # Step 1: Data Preprocessing
+model_start_time = time.time()
 print("[Model] Started Processing Data...")
 data = pd.read_csv("data/main.csv")
 data["Label"] = data["Label"].map({"bad": 0, "good": 1})
@@ -28,10 +30,10 @@ Y = data["Label"]
 # Step 2: Model Training
 model = Pipeline([
     ('tfidf', TfidfVectorizer()),
-    ('classifier', LogisticRegression(solver='lbfgs', max_iter=500000))
+    ('classifier', LogisticRegression(solver='lbfgs', max_iter=1000000))
 ])
 model.fit(X, Y)
-print("[Model] Processing Done...")
+print("[Model] Processing Done...", floor(time.time()- model_start_time), end="s\n")
 
 # Step 3: Create an API using Flask
 app = Flask(__name__)
@@ -43,7 +45,7 @@ def index():
         GET /
         { introduction, usage_time, uptime }
     """
-    introduction = "Welcome to the System Usage API! This API provides information about system usage time and uptime."
+    introduction = "Welcome to the Our API! This API provides information about phising links. Got to `/checkurl`"
     usage_time = time.strftime("%Y-%m-%d %H:%M:%S")
     uptime = get_system_uptime()
     return jsonify({
