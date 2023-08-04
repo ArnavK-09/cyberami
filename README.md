@@ -62,7 +62,7 @@ uvicorn main:app --reload --workers 2
 
    The `type` field can have values "good" or "bad," indicating the classification result.
 
-## ⚡ Key Poiints
+## ⚡ Key Points
 
 - 🚀 - Exciting features and blazing-fast performance.
 - 💡 - Insightful explanations and helpful tips.
