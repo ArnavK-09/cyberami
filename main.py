@@ -1,18 +1,21 @@
-#imports 
+"""
+    uvicorn main:app --reload --workers 2
+"""
 from __future__ import annotations
 import asyncio
 import time
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
-import pandas as pd
 import math
 from datetime import timedelta
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
 # Step 0: Init API
 app = FastAPI()
+MODEL = None
 
 # Step 1: Setup Helper functions
 def get_system_uptime() -> str:
@@ -25,6 +28,8 @@ def get_system_uptime() -> str:
 # Step 2: Load Model
 async def load_model_data():
     """Asynchronously load and preprocess data"""
+
+    global MODEL
     model_start_time = time.time()
     print("[Model] Started Processing Data...")
     data: pd.DataFrame = pd.read_csv("data/main.csv")
@@ -38,13 +43,14 @@ async def load_model_data():
     model.fit(X, Y)
     print("[Model] Processing Done...", math.floor(
         time.time() - model_start_time), end="s\n")
-    return model
+    MODEL = model
 
-model_task = asyncio.create_task(load_model_data())
+# Start model loading asynchronously
+asyncio.create_task(load_model_data())
 
 # Step 3: Configure Routes
 @app.get('/')
-async def index(request: Request):
+async def index():
     """ GET / """
     introduction: str = "Welcome to the Our API! This API provides information about phishing links. Go to `/checkurl`"
     usage_time: str = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -56,9 +62,10 @@ async def index(request: Request):
     }
 
 @app.get('/checkurl', response_class=JSONResponse)
-async def check_url(request: Request, url: str = ""):
+async def check_url(url: str = ""):
     """ GET /checkurl?url=... """
     # Wait for the model to be loaded if not loaded yet
-    model = await model_task
-    prediction = model.predict([url])[0]
+    while MODEL is None:
+        await asyncio.sleep(1)
+    prediction = MODEL.predict([url])[0]
     return {"url": url, "type": "good" if prediction == 1 else "bad"}
