@@ -85,3 +85,5 @@ gunicorn app:app
 This project is licensed under the 'Unlicense' License - see the [LICENSE](LICENSE) file for details.
 
 ---
+
+> **For Fast API Version:- [Click Here](https://github.com/ArnavK-09/phishing-detection/tree/with/fastapi)**
