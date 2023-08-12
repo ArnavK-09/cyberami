@@ -14,10 +14,10 @@ def hello_world():
     return render_template("main.html")
 
 
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.route('/prediction', methods=['POST'])
+def prediction():
     """
-        POST /predict
+        POST /prediction
     """
     inputs = [(x) for x in request.form.values()]
     prediction = model.predict([inputs[0]])[0]
