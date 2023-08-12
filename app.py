@@ -1,5 +1,5 @@
 # imports 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import pickle
 
 # init
@@ -23,3 +23,13 @@ def predict():
     prediction = model.predict([inputs[0]])[0]
     result = "Safe" if prediction == 1 else "Harmful"
     return render_template('main.html', res=result)
+
+@app.route('/checkurl', methods=['GET'])
+def check_url():
+    """
+        GET /checkurl?url=...
+    """
+    query_url = request.args.get('url')
+    prediction = model.predict([query_url])[0]
+    res = "good" if prediction == 1 else "bad"
+    return jsonify({'url': query_url, "result" : res})
