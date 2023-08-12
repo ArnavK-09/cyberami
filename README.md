@@ -63,7 +63,7 @@ gunicorn app:app
      ```
      {
          "url": "https://example.com",
-         "type": "safe" || "harmful"
+         "result": "safe" || "harmful"
      }
      ```
 
