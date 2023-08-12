@@ -1,7 +1,7 @@
 # **Phishing URL Detection Website**
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
-![FastAPI](https://img.shields.io/badge/Flask-2.1%2B-blue.svg)
+![FastAPI](https://img.shields.io/badge/Flask-2.1%2B-red.svg)
 ![License](https://img.shields.io/github/license/ArnavK-09/phishing-detection)
 
 ## 📚 Overview
