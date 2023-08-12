@@ -21,7 +21,7 @@ def predict():
     """
     inputs = [(x) for x in request.form.values()]
     prediction = model.predict([inputs[0]])[0]
-    result = "Safe" if prediction == 1 else "Harmful"
+    result = "Safe" if prediction == 1 else "Dangerous"
     return render_template('main.html', res=result, website=inputs[0])
 
 @app.route('/checkurl', methods=['GET'])
