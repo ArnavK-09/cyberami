@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Tags  -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
+    <title>Check Phishing URL</title>
+
+    <!-- favicon  -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg fill='none' stroke='%2300A36C' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z'%3E%3C/path%3E%3C/svg%3E" />
+
+    <!-- Material CSS  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+
+  <body style="height: 100%">
+    <nav class="deep-purple darken-4 lighten-1 z-depth-4" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo center"
+          ><strong>Check If URL is Phishing You...</strong></a
+        >
+      </div>
+    </nav>
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br /><br />
+        <h1 class="header center orange-text accent-4">
+          <strong>Check URL Now!</strong>
+        </h1>
+        <div class="row center">
+          <h5 class="header col s12 light">
+            Predict the probability of getting Phished
+            <br />
+          </h5>
+        </div>
+
+        <div class="row">
+          <form action="/predict" method="POST" class="col s12">
+            <div>
+              <div class="input-field">
+                <label for="url"><b>Enter URL</b></label>
+                <input
+                  id="url"
+                  required
+                  autocomplete="false"
+                  name="url"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+            </div>
+            <div class="row center">
+              <button
+                type="submit"
+                class="btn-large waves-effect waves-light brown darken-3"
+                style="width: 100%"
+              >
+                <strong>Check URL</strong>
+              </button>
+            </div>
+          </form>
+        </div>
+        {% if res %}
+        <h4 align="center">
+          <em class="indigo-text lighten-4">Result</em>: Mentioned Website is
+          <strong>{{res}}</strong>
+        </h4>
+        {% endif %}
+        <br />
+      </div>
+    </div>
+
+    <footer
+      class="teal darken-4"
+      style="display: absolute; bottom: 0px; padding: 20px"
+    >
+      <h5 style="text-align: center; color: white">
+        <strong>
+          Made By
+          <a
+            href="https://github.com/ArnavK-09"
+            style="text-decoration: underline"
+            >ArnavK-09</a
+          >
+        </strong>
+      </h5>
+    </footer>
+  </body>
+</html>
