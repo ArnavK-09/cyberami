@@ -72,7 +72,7 @@
         {% if res %}
         <h4 align="center">
           <em class="indigo-text lighten-4">Result</em>: Mentioned Website is
-          <strong>{{res}}</strong>
+          <strong class="{{ 'teal-text accent-3' if res == "Safe" else 'red-text' }}">{{res}}</strong>
         </h4>
         {% endif %}
         <br />
